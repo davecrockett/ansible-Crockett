@@ -1,7 +1,14 @@
   ---
   - name: Display STC
-    zos started tasks:  
-      state: "displayed"
-      job name: "all"
-      hosts: zos
-      environment: "{{ environment_vars }}"
+    hosts: zos
+    gather_facts: false 
+    environment: "{{ environment_vars }}"
+
+    tasks:
+
+    - name: Display STC
+      zos started tasks:
+        state: "displayed"
+        job name: "all" 
+
+        
