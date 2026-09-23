@@ -12,13 +12,13 @@
   - name: Keep only started tasks
     set_fact:
       started_tasks: >-
-       {{
-          active_jobs.jobs
-          | selectattr('job_class', 'defined')
-          | selectattr('job_class', 'equalto', 'STC')
-          | list
+        {{
+            active_jobs.jobs
+            | selectattr('job_class', 'defined')
+            | selectattr('job_class', 'equalto', 'STC')
+            | list
         }}
 
   - name: Display result
       debug:
-      msg: "{{ started_tasks | map(attribute='job_name') | list }}" 
+        msg: "{{ started_tasks | map(attribute='job_name') | list }}" 
