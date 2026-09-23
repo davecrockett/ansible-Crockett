@@ -7,10 +7,13 @@
   tasks:
     - name: Return z/OS facts in the subsets ('ipl' and 'sys') and filter out all facts that do not match 'parmlib'
       ibm.ibm_zos_core.zos_gather_facts:
-        gather subset: sys
-        register: zos_facts
+        gather subset: 
+         - ipl
+         - sys
+        filter: 'parmlib'
+      register: results
 
     - name: Print return info from previous tasks
-      debug:
-        var: zos_facts  
-       
+      ansible.builtin.debug:
+        var: results      
+        
