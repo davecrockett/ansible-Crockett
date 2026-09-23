@@ -4,3 +4,4 @@
       state: "displayed"
       job name: "all"
       hosts: zos
+      environment: "{{ environment_vars }}"
