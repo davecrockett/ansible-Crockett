@@ -5,8 +5,7 @@
   environment: "{{ environment_vars }}"
 
   tasks:
-    - name: Return z/OS facts in the subsets ('ipl' and 'sys') and filter out all
-        facts that do not match 'parmlib'
+    - name: Return z/OS facts in the subsets ('ipl' and 'sys') and filter out all facts that do not match 'parmlib'
       ibm.ibm_zos_core.zos_gather_facts:
         gather subset: sys
         register: zos_facts
