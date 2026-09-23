@@ -1,4 +1,4 @@
-  ---
+---
   - name: Display STC
     hosts: zos
     gather_facts: false 
@@ -6,18 +6,20 @@
 
     tasks:
 
-    - name: Display all STC
-      ibm.ibm_zos_core_job_query:
-        register: active_jobs
-      - name:  keep only stc
-        set_fact:
-           stcs:  >-
-           active_jobs.jobs  
-           | selectattr('job_class', 'defined')
-           | selectattr('jobclass', 'equalto',  'stc')
-           | list
-           ))
-      - name: Display STC
-        ansible.builtin.debug:
-         msg: "{{ started_tasks | map(attribute='job_name') | list}}"
-  
+    - name: Query all active jobs
+      zos_job_query:
+      register: active_jobs
+
+    - name: Keep only started tasks
+      set_fact:
+        started_tasks: >-
+         {{
+            active_jobs.jobs
+            | selectattr('job_class', 'defined')
+            | selectattr('job_class', 'equalto', 'STC')
+            | list
+         }}
+
+    - name: Display result
+        debug:
+        msg: "{{ started_tasks | map(attribute='job_name') | list }}" 
