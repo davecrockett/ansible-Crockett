@@ -6,9 +6,18 @@
 
     tasks:
 
-    - name: Display STC
-      zos started tasks:
-        state: "displayed"
-        job name: "all" 
-
-        
+    - name: Display all STC
+      ibm.ibm_zos_core_job_query:
+        register: active_jobs
+      - name:  keep only stc
+        set_fact:
+           stcs:  >-
+           active_jobs.jobs  
+           | selectattr('job_class', 'defined')
+           | selectattr('jobclass', 'equalto',  'stc')
+           | list
+           ))
+      - name: Display STC
+        ansible.builtin.debug:
+         msg: "{{ started_tasks | map(attribute='job_name') | list}}"
+  
