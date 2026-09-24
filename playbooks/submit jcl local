@@ -1,0 +1,18 @@
+# Writes the JCL inline, submits it, and prints the spool output.
+- name: Hello World JCL job
+  hosts: zoslab
+  gather_facts: false
+  collections:
+    - ibm.ibm_zos_core
+  environment: "{{ environment_vars }}"
+
+  tasks:
+    - name: Submit local
+      zos_job_submit:
+        src: "{{ playbook_dir}} /JCL/Hello_JCL.txt"  
+        remote_src: false
+        encoding:
+          from: UTF-8
+          to: IBM-1047
+
+          
