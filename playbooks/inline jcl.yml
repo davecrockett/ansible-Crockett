@@ -1,6 +1,6 @@
 ---
 - name: inline jcl
-  hosts: zos
+  hosts: zoslab
   gather_facts: false
   environment: "{{ environment_vars }}"
   collections:
