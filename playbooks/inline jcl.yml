@@ -20,8 +20,8 @@
         dest: /u/ibmuser/hello_world.jcl
         force: true
 
-    - name submit Hello World Job
-      zos_job_submit
+    - name: submit Hello World Job
+      zos_job_submit:
         src: /u/ibmuser/hello_world.jcl
         location: USS
         wait_time_s: 60
@@ -30,7 +30,7 @@
 
     - name: Show jobid and return code
       debug:
-        msg: "job {{ job_output.jobs[0].job.id }} completed rc={{ job_output.jobs[0].ret_code.msg }}"
+        msg: "job {{ job_output.jobs[0].job.id } completed rc={{ job_output.jobs[0].ret_code.msg }}"
 
      -name: Show spool output
       debug:
