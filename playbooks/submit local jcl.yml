@@ -6,7 +6,7 @@
     - ibm.ibm_zos_core
   environment: "{{ environment_vars }}"
   vars: 
-    job_owner IBMUSER
+    job_owner: IBMUSER
 
   tasks:
     - name: Submit local
