@@ -10,7 +10,7 @@
     - name: Submit local
       zos_job_submit:
         src: "{{ GAMA06.JCL.CNTL(HELOWRLD)}}"
-        location: local
+        remote_src: true
         encoding:
           from: UTF-8
           to: IBM-1047
@@ -19,3 +19,4 @@
     - name: Show job ID and return code
       ansible.builtin.debug:
         msg: "Job {{ job_result.jobs[0].job_id }}"
+
