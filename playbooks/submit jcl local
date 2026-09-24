@@ -15,7 +15,7 @@
           from: UTF-8
           to: IBM-1047
       register: job_output
-      
+
     - name: Show job ID and return code
-      debug:
-        var: job_output
+      ansible.builtin.debug:
+        msg: "Job {{ job_result.jobs[0].job_id }}"
