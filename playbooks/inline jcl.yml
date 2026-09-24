@@ -5,7 +5,7 @@
   environment: "{{ environment_vars }}"
   collections:
     - ibm.ibm_zos_core
-  
+
   tasks:
     - name: Write Hello World JCL to USS
       zos_copy:
@@ -36,4 +36,3 @@
       debug:
         msg: "{{ job_output.jobs[0].ddnames | map(attribute*.'content') | list }}"
 
-  
