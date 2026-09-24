@@ -28,9 +28,9 @@
         return_output: true
       register: job_output
 
-    - name: Show jobid and return code
+    - name: Show job ID and return code
       debug:
-        msg: "job {{ job_output.jobs[0].job.id }} completed rc={{ job_output.jobs[0].ret_code.msg }}"
+        msg: "job {{ job_output.jobs[0].job_id }} completed rc={{ job_output.jobs[0].ret_code.msg }}"
 
     - name: Show spool output
       debug:
