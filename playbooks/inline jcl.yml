@@ -4,7 +4,7 @@
   gather_facts: false
   enviroment: "{{ enviroment_vars }}"
   collections:
-    -  ibm.ibm_zos_core
+    - ibm.ibm_zos_core
   
   tasks:
     - name: Write Hello World JCL to USS
@@ -17,16 +17,16 @@
           //STDPARM  DD *
           SH echo "Hello, World from z/OS!"
           /*
-        dest:  /u/ibmuser/hello_world.jcl
-        fcrre: true
+        dest: /u/ibmuser/hello_world.jcl
+        force: true
 
     - name submit Hello World Job
-     zos_job_submit
-       src: /u/ibmuser/hello_world.jcl
-       location: USS
-       wait_time_s: 60
-       return_output: true
-     register: job_output
+      zos_job_submit
+        src: /u/ibmuser/hello_world.jcl
+        location: USS
+        wait_time_s: 60
+        return_output: true
+      register: job_output
 
     - name: Show jobid and return code
       debug:
