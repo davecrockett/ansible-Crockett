@@ -1,10 +1,10 @@
----
-- name: inline jcl
+# Writes the JCL inline, submits it, and prints the spool output.
+- name: Hello World JCL job
   hosts: zoslab
   gather_facts: false
-  environment: "{{ environment_vars }}"
   collections:
     - ibm.ibm_zos_core
+  environment: "{{ environment_vars }}"
 
   tasks:
     - name: Write Hello World JCL to USS
@@ -20,7 +20,7 @@
         dest: /u/ibmuser/hello_world.jcl
         force: true
 
-    - name: submit Hello World Job
+    - name: Submit Hello World job
       zos_job_submit:
         src: /u/ibmuser/hello_world.jcl
         location: USS
@@ -30,9 +30,8 @@
 
     - name: Show job ID and return code
       debug:
-        msg: "job {{ job_output.jobs[0].job_id }} completed rc={{ job_output.jobs[0].ret_code.msg }}"
+        msg: "Job {{ job_output.jobs[0].job_id }} completed RC={{ job_output.jobs[0].ret_code.msg }}"
 
     - name: Show spool output
       debug:
-        msg: "{{ job_output.jobs[0].ddnames | map(attribute*.'content') | list }}"
-
+        msg: "{{ job_output.jobs[0].ddnames | map(attribute='content') | list }}"
