@@ -16,7 +16,7 @@
 
     - name: Show job ID and return code
       ansible.builtin.debug:
-        msg: "Job {{ job_result.jobs[0].job_id }}"
+        msg: "Job {{ job_output.jobs[0].job_id }}"
 
 
 
