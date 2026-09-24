@@ -9,7 +9,7 @@
   tasks:
     - name: Write Hello World JCL to USS
       zos_copy:
-        content:
+        content: |
           //HELOWRLD JOB CLASS=A,MSGCLASS=X,MSGLEVEL=(1,1)
           //STEP1    EXEC PGM=BPXBATCH
           //STDOUT   DD SYSOUT=*
