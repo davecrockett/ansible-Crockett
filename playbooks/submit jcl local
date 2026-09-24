@@ -14,8 +14,8 @@
         encoding:
           from: UTF-8
           to: IBM-1047
-
+      register: job_output
+      
     - name: Show job ID and return code
       debug:
         var: job_output
-        
