@@ -9,7 +9,7 @@
   tasks:
     - name: Submit local
       zos_job_submit:
-        src: "{{ playbook_dir}}/JCL/helowrld.txt" 
+        src: "{{ GAMA06.JCL.CNTL(HELOWRLD)}}"
         location: local
         encoding:
           from: UTF-8
