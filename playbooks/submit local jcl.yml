@@ -5,6 +5,8 @@
   collections:
     - ibm.ibm_zos_core
   environment: "{{ environment_vars }}"
+  vars: 
+    job_owner IBMUSER
 
   tasks:
     - name: Submit local
@@ -16,6 +18,7 @@
           from: UTF-8
           to: IBM-1047
       register: job_output
+      wait_time_s: 30 
 
     - name: Show job ID and return code
       ansible.builtin.debug:
