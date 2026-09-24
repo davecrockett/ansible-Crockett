@@ -1,0 +1,54 @@
+---
+- name: Submit JCL from a PDS member on the mainframe
+  ibm.ibm_zos_core.zos_job_submit:
+    src: HLQ.DATA.LLQ(SAMPLE)
+    remote_src: true
+  register: job_response
+
+
+  - task  name: Copy a local text file to a sequential data set
+  zos_copy:
+    src: ./files/print.txt
+    dest: HLQ.PRINT.NEW
+    asa_text: true
+
+
+---
+- name: inline jcl
+  hosts: zos
+  gather_facts: false
+  enviroment: "{{ enviroment_vars }}"
+  collections:
+     -  ibm.ibm_zos_core
+  
+  tasks:
+    - name: Write Hello World JCL to USS
+      zos_copy:
+        content:
+          //HELOWRLD JOB CLASS=A,MSGCLASS=X,MSGLEVEL=(1,1)
+          //STEP1    EXEC PGM=BPXBATCH
+          //STDOUT   DD SYSOUT=*
+          //STDERR   DD SYSOUT=*
+          //STDPARM  DD *
+          SH echo "Hello, World from z/OS!"
+          /*
+        dest:  /u/ibmuser/hello_world.jcl
+        fcrre: true
+
+    -name submit Hello World Job
+     zos_job_submit
+       src: /u/ibmuser/hello_world.jcl
+       location: USS
+       wait_time_s: 60
+       return_output: true
+     register: job_output
+
+    - name: Show jobid and return code
+      debug:
+        msg: "job {{ job_output.jobs[0].job.id }} completed rc={{ job_output.jobs[0].ret_code.msg }}"
+
+     -name: Show spool output
+      debug:
+      msg: "{{ job_output.jobs[0].ddnames | map(attribute*.'content') | list }}"
+
+  
