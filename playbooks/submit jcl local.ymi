@@ -20,3 +20,4 @@
       ansible.builtin.debug:
         msg: "Job {{ job_result.jobs[0].job_id }}"
 
+        
