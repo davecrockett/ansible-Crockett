@@ -2,7 +2,7 @@
 - name: inline jcl
   hosts: zos
   gather_facts: false
-  enviroment: "{{ enviroment_vars }}"
+  environment: "{{ environment_vars }}"
   collections:
     - ibm.ibm_zos_core
   
