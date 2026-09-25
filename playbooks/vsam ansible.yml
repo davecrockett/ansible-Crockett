@@ -10,6 +10,11 @@
   collections:
     - ibm.ibm_zos_core
 
+- name: delete vsam
+  ibm.ibm._zos_core.zos_data_set
+  name: GAMA06.TEST.KSDS
+  state: absent
+
   tasks:
     - name: Allocate VSAM KSDS Cluster
       zos_data_set:
