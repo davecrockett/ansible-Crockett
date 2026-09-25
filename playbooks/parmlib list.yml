@@ -10,4 +10,3 @@
 - name: Display result
   ansible.builtin.debug:
     msg: "{{ parmlib_members | map(attribute='job_name') | list }}
-
