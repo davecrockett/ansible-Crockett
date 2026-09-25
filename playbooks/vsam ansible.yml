@@ -1,0 +1,32 @@
+- name: vsam ansible
+  hosts: zoslab
+  gather_facts: false
+  environment: "{{ environment_vars }}"
+  vars:
+    job_owner: IBMUSER
+- name: vsam ansible
+  hosts: zos_node
+  gather_facts: no
+  collections:
+    - ibm.ibm_zos_core
+
+  tasks:
+    - name: Allocate VSAM KSDS Cluster
+      zos_data_set:
+        name: GAMA06.TEST.VSAM.KSDS
+        type: KSDS
+        state: present
+        space_primary: 10
+        space_secondary: 5
+        space_type: CYL
+        record_length: 80
+        key_length: 8
+        key_offset: 0               
+        
+    - name: Show job ID and return code
+      debug:
+        msg: "Job {{ job_output.jobs[0].job_id }} completed RC={{ job_output.jobs[0].ret_code.msg }}"
+
+    - name: Show spool output
+      debug:
+        msg: "{{ job_output.jobs[0].ddnames | map(attribute='content') | list }}"
