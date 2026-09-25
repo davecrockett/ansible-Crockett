@@ -1,0 +1,2 @@
+# jinja_var
+job_name {{ job_name }}
