@@ -1,0 +1,13 @@
+---
+- name  parmlib list
+  ibm.ibm_zos_core.zos_find:
+    patterns: "SYS1.PARMLIB(*)"register: parmlib_members
+
+- name: display members
+  ansible.bultin.debug:
+    msg: "{{ parmlib_members.data_sets }}"
+
+- name: Display result
+  ansible.builtin.debug:
+    msg: "{{ parmlib_members | map(attribute='job_name') | list }}
+
