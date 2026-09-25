@@ -9,7 +9,7 @@
     libname: JCL 
     primary_allocation: 2
     secondary_allocation: 4 
-    jcl_path: "{{ playbook_dir }}/tmp_jcl/rendered.jcl"
+    jcl_path: "{{ playbook_dir }}/tmp_jcl/render.jcl"
     jcl_dataset_name: "{{ job_owner }}.TEMP.JCL"
 
   tasks:
