@@ -54,7 +54,6 @@
         src: "{{ jcl_dataset_name }}"
       register: job_result
 
-
     - name: Show job id
       ansible.builtin.debug:
         msg: "{{ job_result.jobs[0].job_id }}"
